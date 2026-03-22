@@ -1,26 +1,26 @@
 // Step 1: Simulate User Behavior
 // - Add event listeners for button clicks and form submissions.
 // - Use JavaScript to dynamically update the DOM based on user actions.
-function simulateClicks() {
-    const button = document.getElementById("#simulate-click");
+function simulateClick(containerId, message) {
+    const button = document.getElementById("simulate-click");
 
     if (button) {
         button.addEventListener("click", () => {
             addElementToDOM(containerId, message);
         });
-        // for test
-        addElementToDOM(containerId, message);
     }
+    // for test
+    addElementToDOM(containerId, message);
 }
 
 function handleFormSubmit(formId, containerId) {
     const form = document.getElementById(formId);
-    const input = document.getElementById("#user-input");
+    const input = document.getElementById("user-input");
 
-    if (form) {
+    if (form && input) {
         // Error handle if empty
         if (!input.value || input.value.trim() === "") {
-            displayError("Input cannot be empty!")
+            displayError("Input cannot be empty");
         } else {
             addElementToDOM(containerId, input.value);
             hideError();
@@ -32,7 +32,7 @@ function handleFormSubmit(formId, containerId) {
 // - Implement functions to add, update, and remove DOM elements.
 // - Ensure all elements are dynamically created with appropriate attributes and content.
 function addElementToDOM(containerId, content) {
-    const container = document.getElementById("#containerId");
+    const container = document.getElementById(containerId);
     if (container) {
         const newElement = document.createElement("div");
         newElement.textContent = content;
@@ -42,8 +42,8 @@ function addElementToDOM(containerId, content) {
 
 function removeElementFromDOM(elementId) {
     const element = document.getElementById(elementId);
-    if(element) {
-        element.remove();
+    if (element && element.parentNode) {
+        element.parentNode.removeChild(element);
     }
 }
 
@@ -51,10 +51,18 @@ function removeElementFromDOM(elementId) {
 // - Display error messages in the DOM for invalid inputs or missing elements.
 // - Create reusable functions to handle common error cases.
 function displayError(message) {
-    const errorDiv  = document.getElementById("#error-message");
+    const errorDiv = document.getElementById("error-message");
     if (errorDiv) {
         errorDiv.textContent = message;
         errorDiv.classList.remove("hidden");
+    }
+}
+
+function hideError() {
+    const errorDiv = document.getElementById("error-message");
+    if (errorDiv) {
+        errorDiv.classList.add("hidden");
+        errorDiv.textContent = "";
     }
 }
 
@@ -70,4 +78,10 @@ function createElement(tag, attributes = {}) {
 }
 
 //Needed for Jest export all functions for global usage in the app
-module.exports = { addElementToDOM, removeElementFromDOM, simulateClicks, handleFormSubmit, createElement}
+module.exports = { 
+    addElementToDOM, 
+    removeElementFromDOM, 
+    simulateClick, 
+    handleFormSubmit, 
+    createElement 
+};
