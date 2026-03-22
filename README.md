@@ -1,5 +1,4 @@
 # Lab: DOM Testing and User Behavior Simulation
-
 ## Introduction
 
 As a junior developer on a web development team, you are tasked with ensuring the functionality of a web application by validating DOM interactions and user behaviors. This involves simulating user actions, such as button clicks and form submissions, and verifying that these interactions update the DOM as expected. Mastering DOM testing techniques is crucial for maintaining application quality.
